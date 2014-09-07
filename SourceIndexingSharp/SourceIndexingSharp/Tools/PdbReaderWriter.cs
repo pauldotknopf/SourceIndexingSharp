@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 
-namespace SourceIndexingSharp
+namespace SourceIndexingSharp.Tools
 {
     public class PdbReaderWriter : IPdbReaderWriter
     {
-        private readonly Tools _tools;
+        private readonly Paths _paths;
 
-        public PdbReaderWriter(Tools tools)
+        public PdbReaderWriter(Paths paths)
         {
-            _tools = tools;
-            _tools.VerifyPdbStrPath();
+            _paths = paths;
+            _paths.VerifyPdbStrPath();
         }
 
         public void WritePdb(string pdbFile, Action<StreamWriter> writerAction, string streamName = "srcsrv")
@@ -25,7 +22,7 @@ namespace SourceIndexingSharp
                 using (var sw = File.CreateText(tmpFile))
                     writerAction(sw);
 
-                var psi = new ProcessStartInfo(_tools.PdbStrPath)
+                var psi = new ProcessStartInfo(_paths.PdbStrPath)
                 {
                     Arguments = string.Format("-w -s:{0} -p:\"{1}\" -i:\"{2}\"", streamName, pdbFile, tmpFile),
                     UseShellExecute = false,
@@ -49,7 +46,7 @@ namespace SourceIndexingSharp
 
         public string ReadPdb(string pdbFile, string streamName = "srcsrv")
         {
-            var psi = new ProcessStartInfo(_tools.PdbStrPath)
+            var psi = new ProcessStartInfo(_paths.PdbStrPath)
             {
                 WorkingDirectory = new FileInfo(pdbFile).Directory.FullName,
                 UseShellExecute = false,

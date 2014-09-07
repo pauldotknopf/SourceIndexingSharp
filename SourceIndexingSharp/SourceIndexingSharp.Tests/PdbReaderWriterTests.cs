@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using SourceIndexingSharp.Tools;
 
 namespace SourceIndexingSharp.Tests
 {
@@ -17,7 +18,7 @@ namespace SourceIndexingSharp.Tests
         {
             // arrange
             var pdbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", "SourceIndexingSharp.pdb");
-
+            
             // act
             _pdbReaderWriter.WritePdb(pdbFile, writer => writer.Write("Test line..."));
 
@@ -28,7 +29,7 @@ namespace SourceIndexingSharp.Tests
         public override void Setup()
         {
             base.Setup();
-            _pdbReaderWriter = new PdbReaderWriter(_tools);
+            _pdbReaderWriter = new PdbReaderWriter(_paths);
         }
     }
 }

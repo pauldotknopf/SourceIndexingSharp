@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtractingTests.cs" />
     <Compile Include="PdbReaderWriterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SrcToolTests.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>

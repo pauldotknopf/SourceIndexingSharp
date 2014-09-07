@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SourceIndexingSharp
 {
-    public class Tools
+    public class Paths
     {
         public string SrcToolPath { get; set; }
 

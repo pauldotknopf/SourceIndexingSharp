@@ -32,6 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,14 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPdbReaderWriter.cs" />
-    <Compile Include="PdbReaderWriter.cs" />
+    <Compile Include="Tools\IPdbReaderWriter.cs" />
+    <Compile Include="Tools\ISrcTool.cs" />
+    <Compile Include="Tools\PdbReaderWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="SourceIndexException.cs" />
     <Compile Include="SourceIndexToolException.cs" />
     <Compile Include="TinyIoC.cs" />
     <Compile Include="Tools.cs" />
+    <Compile Include="Tools\SrcTool.cs" />
+    <Compile Include="Tools\SrcToolFlags.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
