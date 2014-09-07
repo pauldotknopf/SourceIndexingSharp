@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{87F55377-8735-44A7-93B8-F4A8071E8F08}</ProjectGuid>
+    <ProjectGuid>{D32A77A6-80D2-45B3-B66A-BE3428B0120D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SourceIndexingSharp.Tests</RootNamespace>
-    <AssemblyName>SourceIndexingSharp.Tests</AssemblyName>
+    <RootNamespace>SourceIndexingSharp.Stash</RootNamespace>
+    <AssemblyName>SourceIndexingSharp.Stash</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,11 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,28 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndexProviderTests.cs" />
-    <Compile Include="PdbReaderWriterTests.cs" />
+    <Compile Include="IStashApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SrcToolTests.cs" />
-    <Compile Include="StashIndexingTests.cs" />
-    <Compile Include="TestBase.cs" />
+    <Compile Include="StashApi.cs" />
+    <Compile Include="StashCredentials.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="TestData\SourceIndexingSharp.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SourceIndexingSharp.Stash\SourceIndexingSharp.Stash.csproj">
-      <Project>{d32a77a6-80d2-45b3-b66a-be3428b0120d}</Project>
-      <Name>SourceIndexingSharp.Stash</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SourceIndexingSharp\SourceIndexingSharp.csproj">
       <Project>{c5d5a69d-db36-4387-81fa-f572b934fb52}</Project>
       <Name>SourceIndexingSharp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

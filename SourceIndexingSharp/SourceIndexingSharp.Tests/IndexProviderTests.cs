@@ -12,10 +12,6 @@ namespace SourceIndexingSharp.Tests
     [TestFixture]
     public class IndexProviderTests : TestBase
     {
-        IIndexer _indexer;
-        ISrcTool _srcTool;
-        string _extractionDirectory;
-
         [Test]
         public void Can_index_and_extract_source_files()
         {
@@ -52,23 +48,6 @@ namespace SourceIndexingSharp.Tests
                     writer.WriteLine("{0}*{1}", sourceFile, sourceFile.Substring(startingPathIndex));
                 }
             }
-        }
-
-        public override void Setup()
-        {
-            base.Setup();
-            _srcTool = new SrcTool(_paths);
-            _indexer = new Indexer(new PdbReaderWriter(_paths), _srcTool);
-            _extractionDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.GetRandomFileName());
-            if (!Directory.Exists(_extractionDirectory))
-                Directory.CreateDirectory(_extractionDirectory);
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
-            if (Directory.Exists(_extractionDirectory))
-                Directory.Delete(_extractionDirectory, true);
         }
     }
 }

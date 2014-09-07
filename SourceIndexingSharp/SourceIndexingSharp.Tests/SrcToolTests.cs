@@ -11,8 +11,6 @@ namespace SourceIndexingSharp.Tests
     [TestFixture]
     public class SrcToolTests : TestBase
     {
-        private ISrcTool _srcTool;
-
         [Test]
         public void Can_dump_raw_files_from_pdb()
         {
@@ -38,12 +36,6 @@ namespace SourceIndexingSharp.Tests
 
             // assert
             Assert.That(files, Has.Count.GreaterThan(0));
-        }
-
-        public override void Setup()
-        {
-            base.Setup();
-            _srcTool = new SrcTool(_paths);
         }
     }
 }

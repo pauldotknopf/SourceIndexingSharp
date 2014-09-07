@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceIndexingSharp", "Sour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceIndexingSharp.Tests", "SourceIndexingSharp.Tests\SourceIndexingSharp.Tests.csproj", "{87F55377-8735-44A7-93B8-F4A8071E8F08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceIndexingSharp.Stash", "SourceIndexingSharp.Stash\SourceIndexingSharp.Stash.csproj", "{D32A77A6-80D2-45B3-B66A-BE3428B0120D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stash", "Stash", "{88BD4B89-FD8C-4874-A9EB-1410E3656585}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceIndexingSharp.Extractor", "SourceIndexingSharp.Extractor\SourceIndexingSharp.Extractor.csproj", "{C42F1276-D80B-4B29-B0BC-41099D1BAB4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,8 +25,20 @@ Global
 		{87F55377-8735-44A7-93B8-F4A8071E8F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87F55377-8735-44A7-93B8-F4A8071E8F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87F55377-8735-44A7-93B8-F4A8071E8F08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D32A77A6-80D2-45B3-B66A-BE3428B0120D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32A77A6-80D2-45B3-B66A-BE3428B0120D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D32A77A6-80D2-45B3-B66A-BE3428B0120D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D32A77A6-80D2-45B3-B66A-BE3428B0120D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C42F1276-D80B-4B29-B0BC-41099D1BAB4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C42F1276-D80B-4B29-B0BC-41099D1BAB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C42F1276-D80B-4B29-B0BC-41099D1BAB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C42F1276-D80B-4B29-B0BC-41099D1BAB4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D32A77A6-80D2-45B3-B66A-BE3428B0120D} = {88BD4B89-FD8C-4874-A9EB-1410E3656585}
+		{C42F1276-D80B-4B29-B0BC-41099D1BAB4A} = {88BD4B89-FD8C-4874-A9EB-1410E3656585}
 	EndGlobalSection
 EndGlobal

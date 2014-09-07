@@ -11,8 +11,6 @@ namespace SourceIndexingSharp.Tests
     [TestFixture]
     public class PdbReaderWriterTests : TestBase
     {
-        private IPdbReaderWriter _pdbReaderWriter;
-
         [Test]
         public void Can_read_write_pdb_files()
         {
@@ -24,12 +22,6 @@ namespace SourceIndexingSharp.Tests
 
             // assert
             Assert.That(_pdbReaderWriter.ReadPdb(pdbFile), Is.EqualTo("Test line..."));
-        }
-
-        public override void Setup()
-        {
-            base.Setup();
-            _pdbReaderWriter = new PdbReaderWriter(_paths);
         }
     }
 }
