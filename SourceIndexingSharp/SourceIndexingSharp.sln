@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceIndexingSharp", "SourceIndexingSharp\SourceIndexingSharp.csproj", "{C5D5A69D-DB36-4387-81FA-F572B934FB52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceIndexingSharp.Tests", "SourceIndexingSharp.Tests\SourceIndexingSharp.Tests.csproj", "{87F55377-8735-44A7-93B8-F4A8071E8F08}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5D5A69D-DB36-4387-81FA-F572B934FB52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D5A69D-DB36-4387-81FA-F572B934FB52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D5A69D-DB36-4387-81FA-F572B934FB52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D5A69D-DB36-4387-81FA-F572B934FB52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87F55377-8735-44A7-93B8-F4A8071E8F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87F55377-8735-44A7-93B8-F4A8071E8F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87F55377-8735-44A7-93B8-F4A8071E8F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87F55377-8735-44A7-93B8-F4A8071E8F08}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
