@@ -47,7 +47,7 @@ namespace SourceIndexingSharp.Tests
             public void WriteVariables(StreamWriter writer)
             {
                 writer.WriteLine("SRCSRVTRG=%targ%\\%var2%");
-                writer.WriteLine("SRCSRVCMD={0} test -o \"%SRCSRVTRG%\"", _extractorLocation);
+                writer.WriteLine("SRCSRVCMD={0} test -v 1.0.0.0 -o \"%SRCSRVTRG%\"", _extractorLocation);
             }
 
             public void WriteSourceFiles(StreamWriter writer, List<string> sourceFiles)
