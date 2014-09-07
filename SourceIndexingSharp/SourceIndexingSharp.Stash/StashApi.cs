@@ -50,9 +50,7 @@ namespace SourceIndexingSharp.Stash
 
         private string BuildUrl(string host, string project, string repository, string file, string commit)
         {
-            return "http://stash.medxchange.com/rest/api/1.0/projects/EVO/repos/software/browse/Src/MedXChange.Evo.Presentation/App.xaml";
-            return string.Format("http://{0}/projects/{1}/repos/{2}/browse/{3}?at={4}&raw", host, project, repository,
-                file, commit);
+            return string.Format("http://{0}/rest/api/1.0/projects/{1}/repos/{2}/browse/{3}?at={4}", host, project, repository, file, commit);
         }
 
         // ReSharper disable ClassNeverInstantiated.Local
