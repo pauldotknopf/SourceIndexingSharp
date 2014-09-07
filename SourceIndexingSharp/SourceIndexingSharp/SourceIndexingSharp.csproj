@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Indexing\IIndexer.cs" />
+    <Compile Include="Indexing\IIndexProvider.cs" />
+    <Compile Include="Indexing\Indexer.cs" />
     <Compile Include="Tools\IPdbReaderWriter.cs" />
     <Compile Include="Tools\ISrcTool.cs" />
     <Compile Include="Tools\PdbReaderWriter.cs" />

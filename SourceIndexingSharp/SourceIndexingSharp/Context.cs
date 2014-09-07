@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SourceIndexingSharp.Indexing;
 using SourceIndexingSharp.Tools;
 
 namespace SourceIndexingSharp
@@ -13,7 +14,10 @@ namespace SourceIndexingSharp
         static Context()
         {
             Container = new TinyIoCContainer();
-            Container.Register<Paths>();
+            Container.Register<Paths>().AsSingleton();
+            Container.Register<ISrcTool, SrcTool>();
+            Container.Register<IPdbReaderWriter, PdbReaderWriter>();
+            Container.Register<IIndexer, Indexer>();
         }
 
         public static IPdbReaderWriter PdbReaderWriter

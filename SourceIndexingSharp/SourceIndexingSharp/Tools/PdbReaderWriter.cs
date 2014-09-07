@@ -16,7 +16,11 @@ namespace SourceIndexingSharp.Tools
 
         public void WritePdb(string pdbFile, Action<StreamWriter> writerAction, string streamName = "srcsrv")
         {
+            if(!File.Exists(pdbFile))
+                throw new SourceIndexException("File doesn't exist. " + pdbFile);
+
             var tmpFile = Path.GetFullPath(Path.GetTempFileName());
+
             try
             {
                 using (var sw = File.CreateText(tmpFile))
@@ -40,15 +44,21 @@ namespace SourceIndexingSharp.Tools
             }
             finally
             {
-                File.Delete(tmpFile);
+                if(File.Exists(tmpFile))
+                    File.Delete(tmpFile);
             }
         }
 
         public string ReadPdb(string pdbFile, string streamName = "srcsrv")
         {
+            var fileInfo = new FileInfo(pdbFile);
+
+            if (!fileInfo.Exists)
+                throw new SourceIndexException("File doesn't exist. " + pdbFile);
+
             var psi = new ProcessStartInfo(_paths.PdbStrPath)
             {
-                WorkingDirectory = new FileInfo(pdbFile).Directory.FullName,
+                WorkingDirectory = fileInfo.Directory.FullName,
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
