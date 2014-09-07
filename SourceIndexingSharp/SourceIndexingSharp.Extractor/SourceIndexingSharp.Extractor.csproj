@@ -45,10 +45,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SourceIndexingSharp.Stash\SourceIndexingSharp.Stash.csproj">
-      <Project>{d32a77a6-80d2-45b3-b66a-be3428b0120d}</Project>
-      <Name>SourceIndexingSharp.Stash</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SourceIndexingSharp\SourceIndexingSharp.csproj">
       <Project>{c5d5a69d-db36-4387-81fa-f572b934fb52}</Project>
       <Name>SourceIndexingSharp</Name>

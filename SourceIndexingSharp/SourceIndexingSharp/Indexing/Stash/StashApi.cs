@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Security.Cryptography;
-using System.Security.Policy;
 using System.Text;
-using System.Web;
 using Newtonsoft.Json;
 
-namespace SourceIndexingSharp.Stash
+namespace SourceIndexingSharp.Indexing.Stash
 {
     public class StashApi : IStashApi
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SourceIndexingSharp.Indexing;
+using SourceIndexingSharp.Indexing.Stash;
 using SourceIndexingSharp.Tools;
 
 namespace SourceIndexingSharp
@@ -18,6 +19,7 @@ namespace SourceIndexingSharp
             Container.Register<ISrcTool, SrcTool>();
             Container.Register<IPdbReaderWriter, PdbReaderWriter>();
             Container.Register<IIndexer, Indexer>();
+            Container.Register<IStashApi, StashApi>();
         }
 
         public static IPdbReaderWriter PdbReaderWriter

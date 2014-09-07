@@ -8,6 +8,7 @@ using SourceIndexingSharp.Build;
 
 namespace SourceIndexingSharp.Tests
 {
+    [TestFixture]
     public class BuildInformationTests : TestBase
     {
         IBuildInformation _buildInformation;

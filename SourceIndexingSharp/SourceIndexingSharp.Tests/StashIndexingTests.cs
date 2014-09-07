@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using SourceIndexingSharp.Stash;
+using SourceIndexingSharp.Indexing.Stash;
 
 namespace SourceIndexingSharp.Tests
 {
