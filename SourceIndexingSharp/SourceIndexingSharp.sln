@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stash", "Stash", "{88BD4B89
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceIndexingSharp.Extractor", "SourceIndexingSharp.Extractor\SourceIndexingSharp.Extractor.csproj", "{C42F1276-D80B-4B29-B0BC-41099D1BAB4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceIndexingSharp.Build", "SourceIndexingSharp.Build\SourceIndexingSharp.Build.csproj", "{3447CA92-C1C4-43FE-B9C0-8CA53F55E3C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C42F1276-D80B-4B29-B0BC-41099D1BAB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C42F1276-D80B-4B29-B0BC-41099D1BAB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C42F1276-D80B-4B29-B0BC-41099D1BAB4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3447CA92-C1C4-43FE-B9C0-8CA53F55E3C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3447CA92-C1C4-43FE-B9C0-8CA53F55E3C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3447CA92-C1C4-43FE-B9C0-8CA53F55E3C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3447CA92-C1C4-43FE-B9C0-8CA53F55E3C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
