@@ -11,6 +11,8 @@
     <AssemblyName>SourceIndexingSharp.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildInformationTests.cs" />
+    <Compile Include="ExtractorTests.cs" />
     <Compile Include="GitRepoTests.cs" />
     <Compile Include="IndexProviderTests.cs" />
     <Compile Include="PdbReaderWriterTests.cs" />
@@ -78,6 +81,10 @@
       <Project>{3447ca92-c1c4-43fe-b9c0-8ca53f55e3c2}</Project>
       <Name>SourceIndexingSharp.Build</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SourceIndexingSharp.Extractor\SourceIndexingSharp.Extractor.csproj">
+      <Project>{c42f1276-d80b-4b29-b0bc-41099d1bab4a}</Project>
+      <Name>SourceIndexingSharp.Extractor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SourceIndexingSharp\SourceIndexingSharp.csproj">
       <Project>{c5d5a69d-db36-4387-81fa-f572b934fb52}</Project>
       <Name>SourceIndexingSharp</Name>
@@ -97,6 +104,7 @@ xcopy /s /y /d "$(SolutionDir)packages\LibGit2Sharp.0.19.0.0\lib\net40\NativeBin
 if not exist "$(TargetDir)NativeBinaries\amd64" md "$(TargetDir)NativeBinaries\amd64"
 xcopy /s /y /d "$(SolutionDir)packages\LibGit2Sharp.0.19.0.0\lib\net40\NativeBinaries\amd64\*.*" "$(TargetDir)NativeBinaries\amd64"</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
