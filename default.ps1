@@ -41,7 +41,7 @@ task test {
     if($enc:APPVEYOR -ne $NULL) {
         "Uploading unit test reports to AppVeyor"
         $wc = New-Object 'System.Net.WebClient'
-        $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", $result_dir\SourceIndexingSharp.Tests.xml)
+        $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", "$result_dir\SourceIndexingSharp.Tests.xml" )
     }
 }
 
