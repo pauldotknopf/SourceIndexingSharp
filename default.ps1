@@ -38,7 +38,7 @@ task commonAssemblyInfo {
 task test {
 	create_directory "$result_dir"
     exec { & $nunitPath\nunit-console.exe $source_dir\SourceIndexingSharp.Tests\bin\$config\SourceIndexingSharp.Tests.dll /xml=$result_dir\SourceIndexingSharp.Tests.xml }
-    if($enc:APPVEYOR -ne $NULL) {
+    if($env:APPVEYOR -ne $NULL) {
         "Uploading unit test reports to AppVeyor"
         $wc = New-Object 'System.Net.WebClient'
         $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", "$result_dir\SourceIndexingSharp.Tests.xml" )
