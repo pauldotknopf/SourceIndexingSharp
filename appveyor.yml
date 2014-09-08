@@ -1,5 +1,8 @@
 build_script:
-  - cmd: build.cmd %fakeargs%
+  - cmd: psake.cmd ci
 test: off
 artifacts:
-  - path: bin\*.nupkg
+  - path: bin
+branches:
+  only:
+    - master
