@@ -37,7 +37,7 @@ task commonAssemblyInfo {
 
 task test {
 	create_directory "$result_dir"
-    exec { & $nunitPath\nunit-console.exe $source_dir\SourceIndexingSharp.Tests\bin\$config\SourceIndexingSharp.Tests.dll /xml=$result_dir\SourceIndexingSharp.Tests.xml }
+    exec { & $nunitPath\nunit-console.exe $source_dir\SourceIndexingSharp.Tests\bin\$config\SourceIndexingSharp.Tests.dll }
 }
 
 task dist {
