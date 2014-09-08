@@ -18,7 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{75E67F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AACB83CC-ED6F-4A5D-AE42-2049815C7408}"
 	ProjectSection(SolutionItems) = preProject
+		..\appveyor.yml = ..\appveyor.yml
+		..\default.ps1 = ..\default.ps1
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
+		..\psake.bat = ..\psake.bat
 	EndProjectSection
 EndProject
 Global

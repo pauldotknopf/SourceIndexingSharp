@@ -13,7 +13,7 @@ namespace SourceIndexingSharp.Tests
     {
         IStashApi _stashApi;
 
-        [Test]
+        [Test, Ignore("A real password is needed to validate this test")]
         public void Can_retrieve_raw_source_file_from_http()
         {
             // arrange
