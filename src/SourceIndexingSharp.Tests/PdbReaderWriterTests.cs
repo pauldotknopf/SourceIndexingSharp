@@ -15,7 +15,7 @@ namespace SourceIndexingSharp.Tests
         public void Can_read_write_pdb_files()
         {
             // arrange
-            var pdbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", "SourceIndexingSharp.pdb");
+            var pdbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SourceIndexingSharp.pdb");
             
             // act
             _pdbReaderWriter.WritePdb(pdbFile, writer => writer.Write("Test line..."));

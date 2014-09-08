@@ -15,14 +15,14 @@ namespace SourceIndexingSharp.Tests
         public void Can_dump_raw_files_from_pdb()
         {
             // arrange
-            var pdbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", "SourceIndexingSharp.pdb");
+            var pdbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SourceIndexingSharp.pdb");
 
             // act
             var dump = _srcTool.Dump(pdbFile);
 
             // assert
             Assert.That(dump, Is.Not.Null.Or.Empty);
-            Assert.That(dump, Is.StringStarting("No source information in pdb"));
+            Assert.That(dump, Is.StringEnding("source files are indexed"));
         }
         
         [Test]
