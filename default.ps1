@@ -7,7 +7,7 @@ properties {
     $build_dir = "$base_dir\build"
     $result_dir = "$build_dir\results"
     $dist_dir = "$base_dir\release"
-    $config = "Debug"
+    $global:config = "Debug"
 	$buildNumber = if ( $env:APPVEYOR_BUILD_NUMBER  -ne $NULL) { $env:APPVEYOR_BUILD_NUMBER  } else { "0" }
 	$version = "1.0.0.$buildNumber"
     $nunitPath = "$tools_dir\NUnit-2.6.3"
