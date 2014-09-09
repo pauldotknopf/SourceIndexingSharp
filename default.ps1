@@ -24,7 +24,7 @@ task clean {
 }
 
 task release {
-    $config = "Release"
+    $global:config = "Release"
 }
 
 task compile -depends clean { 
@@ -79,7 +79,7 @@ using System.Reflection;
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyVersionAttribute(""$version"")]
 [assembly: AssemblyFileVersionAttribute(""$version"")]
-[assembly: AssemblyCopyrightAttribute(""Copyright Paul Knopf 2014-" + $date.Year + """)]
+[assembly: AssemblyCopyrightAttribute(""Copyright Paul Knopf 2013-" + $date.Year + """)]
 [assembly: AssemblyProductAttribute(""SourceIndexingSharp"")]
 [assembly: AssemblyTrademarkAttribute(""SourceIndexingSharp"")]
 [assembly: AssemblyCompanyAttribute("""")]
