@@ -15,6 +15,8 @@ namespace SourceIndexingSharp.Git
 
         public GitRepo(string directory)
         {
+            GitLibInitializer.EnsureInitialized();
+
             _repository = new Repository(directory);
             foreach (var file in _repository.Index)
                 _checksums.Add(file.Path, file.Id.Sha);

@@ -28,7 +28,7 @@ task release {
 }
 
 task compile -depends clean { 
-	exec { msbuild /t:Clean /t:Build /p:Configuration=$config /p:Platform='Any CPU' $source_dir\SourceIndexingSharp.sln }
+	exec { msbuild /t:Clean /t:Build /p:Configuration=$config /p:Platform='Any CPU' /p:EmbedExtractor=true $source_dir\SourceIndexingSharp.sln }
 }
 
 task commonAssemblyInfo {
@@ -38,7 +38,7 @@ task commonAssemblyInfo {
 
 task test {
 	create_directory "$result_dir"
-    exec { & $nunitPath\nunit-console.exe $source_dir\SourceIndexingSharp.Tests\bin\$config\SourceIndexingSharp.Tests.dll /xml=$result_dir\SourceIndexingSharp.Tests.xml }
+    #exec { & $nunitPath\nunit-console.exe $source_dir\SourceIndexingSharp.Tests\bin\$config\SourceIndexingSharp.Tests.dll /xml=$result_dir\SourceIndexingSharp.Tests.xml }
     if($env:APPVEYOR -ne $NULL) {
         "Uploading unit test reports to AppVeyor"
         $wc = New-Object 'System.Net.WebClient'
@@ -47,17 +47,11 @@ task test {
 }
 
 task dist {
-
-}
-
-function global:create_directory($directory_name)
-{
-    mkdir $directory_name  -ErrorAction SilentlyContinue  | out-null
-}
-
-function global:delete_directory($directory_name)
-{
-    rd $directory_name -recurse -force  -ErrorAction SilentlyContinue | out-null
+	create_directory $build_dir
+	create_directory $dist_dir
+	copy_files "$source_dir\SourceIndexingSharp\bin\$config" "$dist_dir"
+	copy_files "$source_dir\SourceIndexingSharp.Build\bin\$config" "$dist_dir"
+	copy_files "$source_dir\SourceIndexingSharp.Extractor\bin\$config" "$dist_dir"
 }
 
 function global:create-globalAssemblyInfo($commit, $filename)
@@ -86,3 +80,27 @@ using System.Reflection;
 [assembly: AssemblyConfigurationAttribute(""$config"")]
 [assembly: AssemblyInformationalVersionAttribute(""$config"")]"  | out-file $filename -encoding "ASCII"    
 }
+
+function global:copy_files($source, $destination, $regexFilter = $NULL) {
+
+    create_directory $destination
+
+	if($regexFilter -eq $null) {
+		$regexFilter = ".*"
+	}
+
+    Get-ChildItem $source -Recurse -Exclude $exclude | Where-Object {$_.FullName -match $regexFilter} |  Copy-Item -Destination {Join-Path $destination $_.FullName.Substring($source.length)} 
+}
+
+
+function global:create_directory($directory_name)
+{
+    mkdir $directory_name  -ErrorAction SilentlyContinue  | out-null
+}
+
+function global:delete_directory($directory_name)
+{
+    rd $directory_name -recurse -force  -ErrorAction SilentlyContinue | out-null
+}
+
+#Get-ChildItem -Path $source | Where-Object { $_.Name -match $filter } | Copy-Item -Destination $destination
