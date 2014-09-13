@@ -2,7 +2,7 @@ build_script:
   - cmd: psake.cmd ci
 test: off
 artifacts:
-  - path: (.*)\.nupkg
+  - path: appveyor.yml
 branches:
   only:
     - master
