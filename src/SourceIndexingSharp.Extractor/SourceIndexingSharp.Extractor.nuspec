@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>SourceIndexingSharp.Extractor</id>
+    <version>{version}</version>
+    <authors>Paul Knopf</authors>
+    <owners>Paul Knopf</owners>
+    <licenseUrl>https://github.com/theonlylawislove/SourceIndexingSharp/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>http://www.pknopf.com/sourceindexingsharp</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SourceIndexingSharp.Extractor is a tool that will extract source files via command line. SourceIndexingSharp generates source server commands within pdb files, which in turn, call this extractor. SourceIndexingSharp is embedded within this extractor.</description>
+    <tags>debugging pdb sourceserver sourceindexing</tags>
+    <dependencies>
+      <!--There are no dependencies, because we embedded them all-->
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="SourceIndexingSharpExtractor.exe" target="lib\net40" />
+  </files>
+</package>

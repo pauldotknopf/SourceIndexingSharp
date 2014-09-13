@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SourceIndexingSharp.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\packages\LibGit2Sharp.0.19.0.0\lib\net40\NativeBinaries\amd64\git2-69db893.dll">

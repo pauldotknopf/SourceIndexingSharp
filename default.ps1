@@ -8,9 +8,10 @@ properties {
     $result_dir = "$build_dir\results"
     $dist_dir = "$base_dir\release"
     $global:config = "Debug"
-	$buildNumber = if ( $env:APPVEYOR_BUILD_NUMBER  -ne $NULL) { $env:APPVEYOR_BUILD_NUMBER  } else { "0" }
-	$version = "1.0.0.$buildNumber"
+	$buildNumber = if ( $env:APPVEYOR_BUILD_NUMBER  -ne $NULL) { $env:APPVEYOR_BUILD_NUMBER  } else { "9999" }
+	$version = "0.0.0.$buildNumber"
     $nunitPath = "$tools_dir\NUnit-2.6.3"
+	$nuget = "$source_dir\.nuget\NuGet.exe"
 }
 
 task default -depends local
@@ -19,15 +20,15 @@ task full -depends local, dist
 task ci -depends clean, release, commonAssemblyInfo, local, dist
 
 task clean {
-    delete_directory "$build_dir"
-    delete_directory "$dist_dir"
+    delete_directory $build_dir
+    delete_directory $dist_dir
 }
 
 task release {
     $global:config = "Release"
 }
 
-task compile -depends clean { 
+task compile -depends clean {
 	exec { msbuild /t:Clean /t:Build /p:Configuration=$config /p:Platform='Any CPU' /p:EmbedExtractor=true $source_dir\SourceIndexingSharp.sln }
 }
 
@@ -37,8 +38,8 @@ task commonAssemblyInfo {
 }
 
 task test {
-	create_directory "$result_dir"
-    #exec { & $nunitPath\nunit-console.exe $source_dir\SourceIndexingSharp.Tests\bin\$config\SourceIndexingSharp.Tests.dll /xml=$result_dir\SourceIndexingSharp.Tests.xml }
+	create_directory $result_dir
+    exec { & $nunitPath\nunit-console.exe $source_dir\SourceIndexingSharp.Tests\bin\$config\SourceIndexingSharp.Tests.dll /xml=$result_dir\SourceIndexingSharp.Tests.xml }
     if($env:APPVEYOR -ne $NULL) {
         "Uploading unit test reports to AppVeyor"
         $wc = New-Object 'System.Net.WebClient'
@@ -49,9 +50,24 @@ task test {
 task dist {
 	create_directory $build_dir
 	create_directory $dist_dir
+
 	copy_files "$source_dir\SourceIndexingSharp\bin\$config" "$dist_dir"
 	copy_files "$source_dir\SourceIndexingSharp.Build\bin\$config" "$dist_dir"
 	copy_files "$source_dir\SourceIndexingSharp.Extractor\bin\$config" "$dist_dir"
+
+    copy_file "$source_dir\SourceIndexingSharp\SourceIndexingSharp.nuspec" "$dist_dir"
+	copy_file "$source_dir\SourceIndexingSharp.Extractor\SourceIndexingSharp.Extractor.nuspec" "$dist_dir"
+
+    $Spec = [xml](get-content "$dist_dir\SourceIndexingSharp.nuspec")
+    $Spec.package.metadata.version = ([string]$Spec.package.metadata.version).Replace("{version}", $version)
+    $Spec.Save("$dist_dir\SourceIndexingSharp.nuspec")
+
+	$Spec = [xml](get-content "$dist_dir\SourceIndexingSharp.Extractor.nuspec")
+    $Spec.package.metadata.version = ([string]$Spec.package.metadata.version).Replace("{version}", $version)
+    $Spec.Save("$dist_dir\SourceIndexingSharp.Extractor.nuspec")
+
+	exec { & $nuget pack "$dist_dir\SourceIndexingSharp.nuspec" }
+	exec { & $nuget pack "$dist_dir\SourceIndexingSharp.Extractor.nuspec" }
 }
 
 function global:create-globalAssemblyInfo($commit, $filename)
@@ -92,14 +108,19 @@ function global:copy_files($source, $destination, $regexFilter = $NULL) {
     Get-ChildItem $source -Recurse -Exclude $exclude | Where-Object {$_.FullName -match $regexFilter} |  Copy-Item -Destination {Join-Path $destination $_.FullName.Substring($source.length)} 
 }
 
+function global:copy_file($source, $destination) {
+    if(!(Test-Path $source)) {
+        Write-Error "The file $source doesn't exist, so it can't be copied."
+    }
+    Copy-Item $source $destination
+}
 
-function global:create_directory($directory_name)
-{
+
+function global:create_directory($directory_name) {
     mkdir $directory_name  -ErrorAction SilentlyContinue  | out-null
 }
 
-function global:delete_directory($directory_name)
-{
+function global:delete_directory($directory_name) {
     rd $directory_name -recurse -force  -ErrorAction SilentlyContinue | out-null
 }
 

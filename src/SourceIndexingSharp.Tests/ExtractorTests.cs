@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using NUnit.Framework;
 using SourceIndexingSharp.Indexing;
@@ -46,8 +47,9 @@ namespace SourceIndexingSharp.Tests
 
             public void WriteVariables(StreamWriter writer)
             {
+                var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
                 writer.WriteLine("SRCSRVTRG=%targ%\\%var2%");
-                writer.WriteLine("SRCSRVCMD={0} test -v 1.0.0.0 -o \"%SRCSRVTRG%\"", _extractorLocation);
+                writer.WriteLine("SRCSRVCMD={0} test -v {1} -o \"%SRCSRVTRG%\"", _extractorLocation, assemblyVersion);
             }
 
             public void WriteSourceFiles(StreamWriter writer, List<string> sourceFiles)

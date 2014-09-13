@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>SourceIndexingSharp</id>
+    <version>{version}</version>
+    <authors>Paul Knopf</authors>
+    <owners>Paul Knopf</owners>
+    <licenseUrl>https://github.com/theonlylawislove/SourceIndexingSharp/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>http://www.pknopf.com/sourceindexingsharp</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SourceIndexingSharp is a tool to source index pdb files for easier debugging.</description>
+    <tags>debugging pdb sourceserver sourceindexing</tags>
+    <dependencies>
+      <dependency id="LibGit2Sharp" version="0.19.0.0" />
+      <dependency id="Newtonsoft.Json" version="6.0.5" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="SourceIndexingSharp.dll" target="lib\net40" />
+  </files>
+</package>
