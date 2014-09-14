@@ -6,6 +6,7 @@ branches:
     - master
 deploy:
   provider: NuGet
+  server: 
   api_key:
     secure: zAPLuw8YE6xT/bq90u6lg8hOpEmJao+RTvH0jXJn1GW1SrDpTSirC6NVC9Tss6HG
-  artifact: 'SourceIndexingSharp.0.0.0.27.nupkg'
+  artifact: '*.nupkg'
