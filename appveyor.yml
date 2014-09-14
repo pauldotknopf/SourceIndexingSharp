@@ -1,8 +1,11 @@
 build_script:
   - cmd: psake.cmd ci
 test: off
-artifacts:
-  - path: 'SourceIndexingSharp*.nupkg'
 branches:
   only:
     - master
+deploy:
+  provider: NuGet
+  api_key:
+    secure: zAPLuw8YE6xT/bq90u6lg8hOpEmJao+RTvH0jXJn1GW1SrDpTSirC6NVC9Tss6HG
+  artifact: 'SourceIndexingSharp*.nupkg'
