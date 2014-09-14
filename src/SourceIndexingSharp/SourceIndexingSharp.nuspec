@@ -11,8 +11,7 @@
     <description>SourceIndexingSharp is a tool to source index pdb files for easier debugging.</description>
     <tags>debugging pdb sourceserver sourceindexing</tags>
     <dependencies>
-      <dependency id="LibGit2Sharp" version="0.19.0.0" />
-      <dependency id="Newtonsoft.Json" version="6.0.5" />
+      <!--There are no dependencies, because we embedded them all-->
     </dependencies>
   </metadata>
   <files>
