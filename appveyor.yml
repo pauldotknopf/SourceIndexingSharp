@@ -6,7 +6,7 @@ branches:
     - master
 artifacts:
   - path: 'SourceIndexingSharp*.nupkg'
-  name: NugetPackages
+    name: NugetPackages
 deploy:
   provider: NuGet
   server: 
