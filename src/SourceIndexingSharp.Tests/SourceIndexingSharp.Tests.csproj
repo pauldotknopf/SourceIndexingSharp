@@ -60,6 +60,7 @@
     <Compile Include="IndexProviderTests.cs" />
     <Compile Include="PdbReaderWriterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SourceIndexTaskTests.cs" />
     <Compile Include="SrcToolTests.cs" />
     <Compile Include="StashIndexingTests.cs" />
     <Compile Include="TestBase.cs" />
