@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using SourceIndexingSharp.Indexing.Stash;
+using SourceIndexingSharp.Tools;
 
 namespace SourceIndexingSharp.Tests
 {
@@ -13,12 +14,12 @@ namespace SourceIndexingSharp.Tests
     {
         IStashApi _stashApi;
 
-        [Test, Ignore("A real password is needed to validate this test")]
+        [Test, Ignore]
         public void Can_retrieve_raw_source_file_from_http()
         {
             // arrange
             var destination = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App.xaml");
-            if(File.Exists(destination))
+            if (File.Exists(destination))
                 File.Delete(destination);
 
             // act
@@ -27,6 +28,22 @@ namespace SourceIndexingSharp.Tests
             // assert
             Assert.That(File.Exists(destination));
             Assert.That(File.ReadAllText(destination), Is.StringStarting("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));
+        }
+
+        [Test, Ignore]
+        public void Can_extract_stash_sources()
+        {
+            // arrange
+            var extractorLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"SourceIndexingSharpExtractor.exe");
+            extractorLocation = "SourceIndexingSharpExtractor.exe";
+            var pdbFile = @"E:\Git\testpdb\ErrorApp\ErrorApp\bin\Release\ErrorApp.pdb";
+            var indexProvider = new StashIndexProvider(extractorLocation, @"E:\Git\testpdb", "stash.medxchange.com", "SB", "TestPDB", new StashCredentials("pknopf", "1234qwer"));
+            _indexer.IndexFile(pdbFile, indexProvider);
+
+            // act
+            var output = _srcTool.Dump(pdbFile, SrcToolFlags.ExtractFiles | SrcToolFlags.ShowVersionControlCommandsWhileExtracting, dumpDirectory: _extractionDirectory);
+            Assert.That(output, Is.StringEnding("source files were extracted."));
+            Assert.That(Directory.GetFiles(_extractionDirectory), Has.Length.GreaterThan(0));
         }
 
         public override void Setup()

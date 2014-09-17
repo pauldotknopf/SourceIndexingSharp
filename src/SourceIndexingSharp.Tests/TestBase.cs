@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using SourceIndexingSharp.Build;
 using SourceIndexingSharp.Indexing;
 using SourceIndexingSharp.Tools;
 
@@ -16,6 +17,7 @@ namespace SourceIndexingSharp.Tests
         protected IIndexer _indexer;
         protected ISrcTool _srcTool;
         protected IPdbReaderWriter _pdbReaderWriter;
+        protected IBuildInformation _buildInformation;
         protected string _extractionDirectory;
         // ReSharper restore InconsistentNaming
 
@@ -30,6 +32,7 @@ namespace SourceIndexingSharp.Tests
             _srcTool = new SrcTool(_paths);
             _pdbReaderWriter = new PdbReaderWriter(_paths);
             _indexer = new Indexer(_pdbReaderWriter, _srcTool);
+            _buildInformation = new BuildInformation();
             _extractionDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.GetRandomFileName());
             if (!Directory.Exists(_extractionDirectory))
                 Directory.CreateDirectory(_extractionDirectory);

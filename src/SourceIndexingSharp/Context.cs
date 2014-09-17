@@ -26,5 +26,10 @@ namespace SourceIndexingSharp
         {
             get { return Container.Resolve<IPdbReaderWriter>(); }
         }
+
+        public static IStashApi StashApi
+        {
+            get { return Container.Resolve<IStashApi>(); }
+        }
     }
 }

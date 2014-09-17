@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using PowerArgs;
 using SourceIndexingSharp.Git;
+using SourceIndexingSharp.Indexing.Stash;
 
 namespace SourceIndexingSharp.Extractor
 {
@@ -24,15 +25,21 @@ namespace SourceIndexingSharp.Extractor
             File.WriteAllText(args.OutputFileLocation, "TESTFILE: " + args.OutputFileLocation.ToLower());
         }
 
+        [ArgActionMethod]
+        public void ExtractStash(StashArgs args)
+        {
+            ValidateVersion(args);
+
+            Context.StashApi.ExtractSource(args.Output, args.Host, args.Project, args.Repository, args.File, args.Commit, new StashCredentials(args.Username, args.Password));
+
+            if(!File.Exists(args.Output))
+                throw new Exception("Couldn't extract source to " + args.Output);
+        }
+
         private void ValidateVersion(BaseArgs args)
         {
             var actionsAssemlly = typeof (Actions).Assembly;
             var currentVersion = actionsAssemlly.GetName().Version;
-            Console.WriteLine("Args version = null ? " + (args.Version == null));
-            Console.WriteLine("Args == null ? " + (args == null));
-            Console.WriteLine("Current version == null ? " + (currentVersion == null));
-            Console.WriteLine("currentVersion:" + currentVersion);
-            Console.WriteLine("version: " + args.Version);
             if(currentVersion < args.Version)
                 throw new SourceIndexException(string.Format("You asking the extractor to run at version {0}, but it was compiled at {1}.", args.Version, currentVersion));
         }
@@ -53,9 +60,27 @@ namespace SourceIndexingSharp.Extractor
             public string OutputFileLocation { get; set; }
         }
 
+        public class StashArgs : BaseArgs
+        {
+            public string Output { get; set; }
+
+            public string Host { get; set; }
+
+            public string Project { get; set; }
+
+            public string Repository { get; set; }
+
+            public string File { get; set; }
+
+            public string Commit { get; set; }
+
+            public string Username { get; set; }
+
+            public string Password { get; set; }
+        }
+
         public class BaseArgs
         {
-            [ArgDescription("The version that the PDB file ")]
             [ArgRequired]
             public Version Version { get; set; }
         }

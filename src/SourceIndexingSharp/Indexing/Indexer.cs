@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using SourceIndexingSharp.Tools;
 
 namespace SourceIndexingSharp.Indexing
@@ -16,6 +17,12 @@ namespace SourceIndexingSharp.Indexing
         {
             _pdbReaderWriter = pdbReaderWriter;
             _srcTool = srcTool;
+        }
+
+        public void IndexFiles(IEnumerable<string> files, IIndexProvider indexProvider)
+        {
+            foreach (var file in files)
+                IndexFile(file, indexProvider);
         }
 
         public void IndexFile(string file, IIndexProvider indexProvider)

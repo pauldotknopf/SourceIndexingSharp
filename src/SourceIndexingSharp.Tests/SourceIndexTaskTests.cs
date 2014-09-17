@@ -11,6 +11,7 @@ using SourceIndexingSharp.Build;
 
 namespace SourceIndexingSharp.Tests
 {
+    [TestFixture]
     public class SourceIndexTaskTests : TestBase
     {
         private string _testDirectory;
@@ -26,7 +27,7 @@ namespace SourceIndexingSharp.Tests
             logger.ErrorRaised += (sender, args) => errors.Add(args.Message);
             logger.MessageRaised += (sender, args) => messages.Add(args.Message);
             SetupProjWithConfigPath("config.json");
-            var project = new Project(_projPath, null, "4.0");
+            var project = _buildInformation.Load(_projPath, new Dictionary<string, string>());
             File.WriteAllText(Path.Combine(new FileInfo(_projPath).Directory.FullName, "config.json"), "");
 
             // act
@@ -47,7 +48,7 @@ namespace SourceIndexingSharp.Tests
             logger.ErrorRaised += (sender, args) => errors.Add(args.Message);
             logger.MessageRaised += (sender, args) => messages.Add(args.Message);
             SetupProjWithConfigPath("config.json");
-            var project = new Project(_projPath, null, "4.0");
+            var project = _buildInformation.Load(_projPath, new Dictionary<string, string>());
 
             // act
             var result = project.Build(logger);
@@ -55,7 +56,7 @@ namespace SourceIndexingSharp.Tests
             // assert
             Assert.That(result, Is.False);
             Assert.That(errors, Has.Count.EqualTo(1));
-            Assert.That(errors[0], Is.StringStarting("No configuration file exists at the path"));
+            Assert.That(errors[0], Is.StringStarting("SourceIndex: No configuration file exists at the path"));
         }
 
         private void SetupProjWithConfigPath(string path)
@@ -68,7 +69,7 @@ namespace SourceIndexingSharp.Tests
                 "<Project ToolsVersion=\"4.0\" DefaultTargets=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">" +
                 "  <UsingTask TaskName=\"SourceIndexingSharp.Build.SourceIndex\" AssemblyFile=\"..\\SourceIndexingSharp.Build.dll\" />" +
                 "  <Target Name=\"Build\">" +
-                "      <SourceIndexingSharp.Build.SourceIndex ConfigFile=\"" + path + "\" />" +
+                "      <SourceIndexingSharp.Build.SourceIndex ConfigFile=\"" + path + "\" PdbFiles=\"..\\SourceIndexingSharp.Build.pdb\" />" +
                 "  </Target>" +
                 "</Project>"));
         }

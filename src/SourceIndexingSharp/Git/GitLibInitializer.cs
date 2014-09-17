@@ -57,34 +57,38 @@ namespace SourceIndexingSharp.Git
             var streamLocation = string.Format("SourceIndexingSharp.Git.Embedded.{0}.{1}.dll",
                 IntPtr.Size == 4 ? "x86" : "x64", gitDllName);
 
-            using (var stm = Assembly.GetExecutingAssembly().GetManifestResourceStream(streamLocation))
+            if (!File.Exists(dllPath))
             {
-                if(stm == null)
-                    throw new Exception("Couldn't find the embedded native dll at embedded location " + streamLocation);
-                
-                try
+                using (var stm = Assembly.GetExecutingAssembly().GetManifestResourceStream(streamLocation))
                 {
-                    using (Stream outFile = File.Create(dllPath))
+                    if (stm == null)
+                        throw new Exception("Couldn't find the embedded native dll at embedded location " +
+                                            streamLocation);
+
+                    try
                     {
-                        const int sz = 4096;
-                        var buf = new byte[sz];
-                        while (true)
+                        using (Stream outFile = File.Create(dllPath))
                         {
-                            int nRead = stm.Read(buf, 0, sz);
-                            if (nRead < 1)
-                                break;
-                            outFile.Write(buf, 0, nRead);
+                            const int sz = 4096;
+                            var buf = new byte[sz];
+                            while (true)
+                            {
+                                int nRead = stm.Read(buf, 0, sz);
+                                if (nRead < 1)
+                                    break;
+                                outFile.Write(buf, 0, nRead);
+                            }
                         }
                     }
-                }
-                // ReSharper disable EmptyGeneralCatchClause
-                catch
-                // ReSharper restore EmptyGeneralCatchClause
-                {
-                    // This may happen if another process has already created and loaded the file.
-                    // Since the directory includes the version number of this assembly we can
-                    // assume that it's the same bits, so we just ignore the excecption here and
-                    // load the DLL.
+                        // ReSharper disable EmptyGeneralCatchClause
+                    catch
+                        // ReSharper restore EmptyGeneralCatchClause
+                    {
+                        // This may happen if another process has already created and loaded the file.
+                        // Since the directory includes the version number of this assembly we can
+                        // assume that it's the same bits, so we just ignore the excecption here and
+                        // load the DLL.
+                    }
                 }
             }
 

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -16,6 +14,8 @@ namespace SourceIndexingSharp.Build
         #region Fields
 
         private string _configFile;
+        private string _pdbFiles;
+        private string _rootDirectory;
 
         #endregion
 
@@ -29,6 +29,16 @@ namespace SourceIndexingSharp.Build
         {
             get { return _configFile; }
             set { _configFile = value; }
+        }
+
+        /// <summary>
+        /// The PDB files to index
+        /// </summary>
+        [Required]
+        public string PdbFiles
+        {
+            get { return _pdbFiles; }
+            set { _pdbFiles = value; }
         }
 
         #endregion
@@ -45,13 +55,17 @@ namespace SourceIndexingSharp.Build
         {
             try
             {
+                _rootDirectory = new FileInfo(this.BuildEngine3.ProjectFileOfTaskNode).Directory.FullName;
+
                 VerifyConfigFile();
+
+                var pdbFiles = PdbFiles.Split(';').Select(ResolveFilePath).ToList();
 
                 return true;
             }
             catch (Exception ex)
             {
-                Log.LogError(ex.Message);
+                Log.LogError("SourceIndex: " + ex.Message);
                 return false;
             }
         }
@@ -61,14 +75,33 @@ namespace SourceIndexingSharp.Build
         #region Methods
 
         /// <summary>
+        /// Resolve a possible relative path, and throw an exception if the file doesn't exist.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns></returns>
+        private string ResolveFilePath(string path)
+        {
+            if (Path.IsPathRooted(path))
+            {
+                if (!File.Exists(_configFile))
+                    throw new Exception(string.Format("The file '{0}' could not be found.", path));
+                return path;
+            }
+
+            var possiblePath = Path.GetFullPath(Path.Combine(_rootDirectory, path));
+
+            if (!File.Exists(possiblePath))
+                throw new Exception(string.Format("The file '{0}' could not be found.", possiblePath));
+
+            return possiblePath;
+        }
+
+        /// <summary>
         /// Resolve the config path and verify it exists.
         /// Throws an exception if the config file is not valid.
         /// </summary>
         private void VerifyConfigFile()
         {
-            if (string.IsNullOrEmpty(_configFile))
-                throw new Exception("The 'ConfigFile' attribute must be provided.");
-
             if (Path.IsPathRooted(_configFile))
             {
                 if (!File.Exists(_configFile))
@@ -76,9 +109,7 @@ namespace SourceIndexingSharp.Build
             }
             else
             {
-                var projDirectory = new FileInfo(this.BuildEngine3.ProjectFileOfTaskNode).Directory.FullName;
-
-                _configFile = Path.GetFullPath(Path.Combine(projDirectory, _configFile));
+                _configFile = Path.GetFullPath(Path.Combine(_rootDirectory, _configFile));
 
                 if (!File.Exists(_configFile))
                     throw new Exception(string.Format("No configuration file exists at the path '{0}'.", _configFile));

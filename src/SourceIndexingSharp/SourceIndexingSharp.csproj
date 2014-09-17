@@ -56,10 +56,12 @@
     <Compile Include="Git\GitLibInitializer.cs" />
     <Compile Include="Indexing\IIndexer.cs" />
     <Compile Include="Indexing\IIndexProvider.cs" />
+    <Compile Include="Indexing\IndexCommand.cs" />
     <Compile Include="Indexing\Indexer.cs" />
     <Compile Include="Indexing\Stash\IStashApi.cs" />
     <Compile Include="Indexing\Stash\StashApi.cs" />
     <Compile Include="Indexing\Stash\StashCredentials.cs" />
+    <Compile Include="Indexing\Stash\StashIndexProvider.cs" />
     <Compile Include="Tools\IPdbReaderWriter.cs" />
     <Compile Include="Tools\ISrcTool.cs" />
     <Compile Include="Tools\PdbReaderWriter.cs" />
