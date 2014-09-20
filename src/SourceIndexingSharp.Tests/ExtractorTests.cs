@@ -18,10 +18,9 @@ namespace SourceIndexingSharp.Tests
         {
             // arrange
             var pdbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SourceIndexingSharp.pdb");
-            var extractorLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"SourceIndexingSharpExtractor.exe");
-
+            
             // act
-            _indexer.IndexFile(pdbFile, new ExtractorProviderTests(extractorLocation));
+            _indexer.IndexFile(pdbFile, new ExtractorProviderTests());
 
             // assert
             var output = _srcTool.Dump(pdbFile, SrcToolFlags.ExtractFiles | SrcToolFlags.ShowVersionControlCommandsWhileExtracting, dumpDirectory: _extractionDirectory);
@@ -33,11 +32,8 @@ namespace SourceIndexingSharp.Tests
 
         class ExtractorProviderTests : IIndexProvider
         {
-            private readonly string _extractorLocation;
-
-            public ExtractorProviderTests(string extractorLocation)
+            public ExtractorProviderTests()
             {
-                _extractorLocation = extractorLocation;
             }
 
             public string Name
@@ -49,7 +45,7 @@ namespace SourceIndexingSharp.Tests
             {
                 var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
                 writer.WriteLine("SRCSRVTRG=%targ%\\%var2%");
-                writer.WriteLine("SRCSRVCMD={0} test -v {1} -o \"%SRCSRVTRG%\"", _extractorLocation, assemblyVersion);
+                writer.WriteLine("SRCSRVCMD={0} test -v {1} -o \"%SRCSRVTRG%\"", Context.ExtractorExe(), assemblyVersion);
             }
 
             public void WriteSourceFiles(StreamWriter writer, List<string> sourceFiles)

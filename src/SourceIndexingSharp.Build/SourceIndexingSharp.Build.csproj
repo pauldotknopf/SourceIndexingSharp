@@ -51,6 +51,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SourceIndex.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SourceIndexingSharp\SourceIndexingSharp.csproj">
+      <Project>{c5d5a69d-db36-4387-81fa-f572b934fb52}</Project>
+      <Name>SourceIndexingSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

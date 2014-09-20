@@ -10,18 +10,14 @@ namespace SourceIndexingSharp.Indexing.Stash
 {
     public class StashIndexProvider : IIndexProvider
     {
-        private readonly string _extractorLocation;
         private readonly string _gitDirectory;
         private readonly string _host;
         private readonly string _project;
         private readonly string _repository;
         private readonly StashCredentials _credentials;
         
-        public StashIndexProvider(string extractorLocation, string gitDirectory, string host, string project, string repository, StashCredentials credentials)
+        public StashIndexProvider(string gitDirectory, string host, string project, string repository, StashCredentials credentials)
         {
-            if(string.IsNullOrEmpty(extractorLocation))
-                throw new Exception("You must provide a location of the extractor");
-
             if(string.IsNullOrEmpty(gitDirectory))
                 throw new Exception("You must provide the git directory the repository is located");
 
@@ -37,7 +33,6 @@ namespace SourceIndexingSharp.Indexing.Stash
             if(credentials == null)
                 throw new Exception("You must provide credentials");
 
-            _extractorLocation = extractorLocation;
             _gitDirectory = NormalizePath(gitDirectory);
             _host = host;
             _project = project;
@@ -50,7 +45,7 @@ namespace SourceIndexingSharp.Indexing.Stash
             get { return "Stash"; }
         }
 
-        public void WriteVariables(System.IO.StreamWriter writer)
+        public void WriteVariables(StreamWriter writer)
         {
             var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
             writer.WriteLine("SRCSRVTRG=%targ%\\%var2%");
@@ -58,7 +53,7 @@ namespace SourceIndexingSharp.Indexing.Stash
             {
                 writer.WriteLine(
                     "SRCSRVCMD={0} extractstash -version {1} -output %SRCSRVTRG% -host {2} -project {3} -repository {4} -file %var2% -commit {5} -username {6} -password {7}",
-                    _extractorLocation,
+                    Context.ExtractorExe(),
                     assemblyVersion,
                     _host,
                     _project,

@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Build.Construction;
 using Microsoft.Build.Evaluation;
 using Microsoft.Build.Framework;
+using Moq;
 using NUnit.Framework;
 using SourceIndexingSharp.Build;
 
@@ -81,6 +82,7 @@ namespace SourceIndexingSharp.Tests
             if (!Directory.Exists(_testDirectory))
                 Directory.CreateDirectory(_testDirectory);
             _projPath = Path.Combine(_testDirectory, "test.proj");
+            Context.Container.Register(Mock.Of<IPdbCommandProcessor>());
         }
 
         public override void TearDown()

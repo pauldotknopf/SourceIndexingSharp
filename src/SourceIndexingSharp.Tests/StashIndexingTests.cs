@@ -34,10 +34,8 @@ namespace SourceIndexingSharp.Tests
         public void Can_extract_stash_sources()
         {
             // arrange
-            var extractorLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"SourceIndexingSharpExtractor.exe");
-            extractorLocation = "SourceIndexingSharpExtractor.exe";
             var pdbFile = @"E:\Git\testpdb\ErrorApp\ErrorApp\bin\Release\ErrorApp.pdb";
-            var indexProvider = new StashIndexProvider(extractorLocation, @"E:\Git\testpdb", "stash.medxchange.com", "SB", "TestPDB", new StashCredentials("pknopf", "1234qwer"));
+            var indexProvider = new StashIndexProvider(@"E:\Git\testpdb", "stash.medxchange.com", "SB", "TestPDB", new StashCredentials("pknopf", "1234qwer"));
             _indexer.IndexFile(pdbFile, indexProvider);
 
             // act

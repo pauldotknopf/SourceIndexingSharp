@@ -55,11 +55,22 @@ namespace SourceIndexingSharp.Build
         {
             try
             {
-                _rootDirectory = new FileInfo(this.BuildEngine3.ProjectFileOfTaskNode).Directory.FullName;
+                _rootDirectory = new FileInfo(BuildEngine3.ProjectFileOfTaskNode).Directory.FullName;
 
-                VerifyConfigFile();
+                _configFile = Context.PathResolver.ResolvePath(_configFile, _rootDirectory);
 
-                var pdbFiles = PdbFiles.Split(';').Select(ResolveFilePath).ToList();
+                if (!File.Exists(_configFile))
+                    throw new Exception(string.Format("No configuration file exists at the path '{0}'.", _configFile));
+
+                var pdbFiles = PdbFiles.Split(';').Select(x =>
+                {
+                    var pdbPath = Context.PathResolver.ResolvePath(x, _rootDirectory);
+                    if(!File.Exists(pdbPath))
+                        throw new Exception(string.Format("The file '{0}' could not be found.", pdbPath));
+                    return pdbPath;
+                }).ToList();
+
+                Context.PdbCommandProcessor.Process(pdbFiles, File.ReadAllText(_configFile), _rootDirectory);
 
                 return true;
             }
@@ -67,52 +78,6 @@ namespace SourceIndexingSharp.Build
             {
                 Log.LogError("SourceIndex: " + ex.Message);
                 return false;
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Resolve a possible relative path, and throw an exception if the file doesn't exist.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns></returns>
-        private string ResolveFilePath(string path)
-        {
-            if (Path.IsPathRooted(path))
-            {
-                if (!File.Exists(_configFile))
-                    throw new Exception(string.Format("The file '{0}' could not be found.", path));
-                return path;
-            }
-
-            var possiblePath = Path.GetFullPath(Path.Combine(_rootDirectory, path));
-
-            if (!File.Exists(possiblePath))
-                throw new Exception(string.Format("The file '{0}' could not be found.", possiblePath));
-
-            return possiblePath;
-        }
-
-        /// <summary>
-        /// Resolve the config path and verify it exists.
-        /// Throws an exception if the config file is not valid.
-        /// </summary>
-        private void VerifyConfigFile()
-        {
-            if (Path.IsPathRooted(_configFile))
-            {
-                if (!File.Exists(_configFile))
-                    throw new Exception(string.Format("No configuration file exists at the path '{0}'.", _configFile));
-            }
-            else
-            {
-                _configFile = Path.GetFullPath(Path.Combine(_rootDirectory, _configFile));
-
-                if (!File.Exists(_configFile))
-                    throw new Exception(string.Format("No configuration file exists at the path '{0}'.", _configFile));
             }
         }
 

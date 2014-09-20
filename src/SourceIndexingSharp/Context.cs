@@ -10,7 +10,7 @@ namespace SourceIndexingSharp
 {
     public static class Context
     {
-        private static readonly TinyIoCContainer Container;
+        internal static readonly TinyIoCContainer Container;
 
         static Context()
         {
@@ -20,6 +20,9 @@ namespace SourceIndexingSharp
             Container.Register<IPdbReaderWriter, PdbReaderWriter>();
             Container.Register<IIndexer, Indexer>();
             Container.Register<IStashApi, StashApi>();
+            Container.Register<IStringExpander, StringExpander>();
+            Container.Register<IPdbCommandProcessor, PdbCommandProcessor>();
+            Container.Register<IPathResolver, PathResolver>();
         }
 
         public static IPdbReaderWriter PdbReaderWriter
@@ -31,5 +34,17 @@ namespace SourceIndexingSharp
         {
             get { return Container.Resolve<IStashApi>(); }
         }
+
+        public static IPdbCommandProcessor PdbCommandProcessor
+        {
+            get { return Container.Resolve<IPdbCommandProcessor>(); }
+        }
+
+        public static IPathResolver PathResolver
+        {
+            get { return Container.Resolve<IPathResolver>(); }
+        }
+
+        public static Func<string> ExtractorExe = () => "SourceIndexingSharpExtractor.exe";
     }
 }

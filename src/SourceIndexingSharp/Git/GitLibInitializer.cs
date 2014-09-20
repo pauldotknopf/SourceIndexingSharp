@@ -11,16 +11,18 @@ namespace SourceIndexingSharp.Git
 {
     public class GitLibInitializer
     {
-        static object _initLock = new object();
-        static bool _isInitialized = false;
+        static readonly object InitLock = new object();
+        static bool _isInitialized;
 
         public static void EnsureInitialized()
         {
             if(_isInitialized) return;
 
-            lock (_initLock)
+            lock (InitLock)
             {
                 if(_isInitialized) return;
+
+                _isInitialized = true;
 
                 LoadNativeGitDll();
             }
