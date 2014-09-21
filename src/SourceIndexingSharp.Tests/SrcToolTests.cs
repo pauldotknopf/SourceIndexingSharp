@@ -18,7 +18,7 @@ namespace SourceIndexingSharp.Tests
             var pdbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SourceIndexingSharp.pdb");
 
             // act
-            var dump = _srcTool.Dump(pdbFile);
+            var dump = Context.SrcTool.Dump(pdbFile);
 
             // assert
             Assert.That(dump, Is.Not.Null.Or.Empty);
@@ -32,7 +32,7 @@ namespace SourceIndexingSharp.Tests
             var pdbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SourceIndexingSharp.pdb");
 
             // act
-            var files = _srcTool.GetSourceFiles(pdbFile);
+            var files = Context.SrcTool.GetSourceFiles(pdbFile);
 
             // assert
             Assert.That(files, Has.Count.GreaterThan(0));

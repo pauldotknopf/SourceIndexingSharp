@@ -61,6 +61,7 @@
     <Compile Include="Indexing\Stash\StashApi.cs" />
     <Compile Include="Indexing\Stash\StashCredentials.cs" />
     <Compile Include="Indexing\Stash\StashIndexProvider.cs" />
+    <Compile Include="Indexing\Url\UrlIndexProvider.cs" />
     <Compile Include="IPathResolver.cs" />
     <Compile Include="IStringExpander.cs" />
     <Compile Include="IPdbCommandProcessor.cs" />

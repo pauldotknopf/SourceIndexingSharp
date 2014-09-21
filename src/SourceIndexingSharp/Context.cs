@@ -45,6 +45,21 @@ namespace SourceIndexingSharp
             get { return Container.Resolve<IPathResolver>(); }
         }
 
+        public static IIndexer Indexer
+        {
+            get { return Container.Resolve<IIndexer>(); }
+        }
+
+        public static ISrcTool SrcTool
+        {
+            get { return Container.Resolve<ISrcTool>(); }
+        }
+
+        public static IStringExpander StringExpander
+        {
+            get { return Container.Resolve<IStringExpander>(); }
+        }
+
         public static Func<string> ExtractorExe = () => "SourceIndexingSharpExtractor.exe";
     }
 }

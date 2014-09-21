@@ -18,10 +18,10 @@ namespace SourceIndexingSharp.Tests
             var pdbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SourceIndexingSharp.pdb");
             
             // act
-            _pdbReaderWriter.WritePdb(pdbFile, writer => writer.Write("Test line..."));
+            Context.PdbReaderWriter.WritePdb(pdbFile, writer => writer.Write("Test line..."));
 
             // assert
-            Assert.That(_pdbReaderWriter.ReadPdb(pdbFile), Is.EqualTo("Test line..."));
+            Assert.That(Context.PdbReaderWriter.ReadPdb(pdbFile), Is.EqualTo("Test line..."));
         }
     }
 }

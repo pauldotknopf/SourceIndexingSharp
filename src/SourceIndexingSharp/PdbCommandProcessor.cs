@@ -6,6 +6,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using LibGit2Sharp;
 using Newtonsoft.Json;
+using SourceIndexingSharp.Indexing;
+using SourceIndexingSharp.Indexing.Stash;
+using SourceIndexingSharp.Indexing.Url;
 
 namespace SourceIndexingSharp
 {
@@ -13,11 +16,15 @@ namespace SourceIndexingSharp
     {
         private readonly IStringExpander _stringExpander;
         private readonly IPathResolver _pathResolver;
+        private readonly IIndexer _indexer;
 
-        public PdbCommandProcessor(IStringExpander stringExpander, IPathResolver pathResolver)
+        public PdbCommandProcessor(IStringExpander stringExpander, 
+            IPathResolver pathResolver,
+            IIndexer indexer)
         {
             _stringExpander = stringExpander;
             _pathResolver = pathResolver;
+            _indexer = indexer;
         }
 
         public void Process(List<string> pdbFiles, string command, string relativeDirectory)
@@ -28,16 +35,13 @@ namespace SourceIndexingSharp
             if (!pdbFiles.Any())
                 return;
 
-            foreach (var pdbFile in pdbFiles)
-            {
-                if (!File.Exists(pdbFile))
-                    throw new Exception(string.Format("The pdb file {0} doesn't exist.", pdbFile));
-            }
-
             if (string.IsNullOrEmpty(relativeDirectory))
                 relativeDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
             var indexCommand = JsonConvert.DeserializeObject<IndexCommand>(command);
+
+            if(indexCommand == null)
+                throw new Exception("The indexing command file doesn't seem to be valid, or contain any data.");
 
             if (string.IsNullOrEmpty(indexCommand.Provider))
                 throw new Exception("You must specify a provider to use to do the indexing");
@@ -73,11 +77,7 @@ namespace SourceIndexingSharp
             if (!pdbFiles.Any())
                 return;
 
-            foreach (var pdbFile in pdbFiles)
-            {
-                if (!File.Exists(pdbFile))
-                    throw new Exception(string.Format("The pdb file {0} doesn't exist.", pdbFile));
-            }
+            _indexer.IndexFiles(pdbFiles, new StashIndexProvider(gitDirectory, host, project, repository, new StashCredentials(username, password)));
         }
 
         public virtual void ProcessUrl(List<string> pdbFiles, string gitDirectory, string urlFormat)
@@ -88,11 +88,7 @@ namespace SourceIndexingSharp
             if (!pdbFiles.Any())
                 return;
 
-            foreach (var pdbFile in pdbFiles)
-            {
-                if (!File.Exists(pdbFile))
-                    throw new Exception(string.Format("The pdb file {0} doesn't exist.", pdbFile));
-            }
+            _indexer.IndexFiles(pdbFiles, new UrlIndexProvider(_stringExpander, gitDirectory, urlFormat));
         }
 
         // ReSharper disable ClassNeverInstantiated.Local

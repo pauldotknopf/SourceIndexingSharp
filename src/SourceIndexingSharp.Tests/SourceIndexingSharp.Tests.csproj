@@ -74,6 +74,7 @@
     <Compile Include="StashIndexingTests.cs" />
     <Compile Include="StringExpanderTests.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="UrlIndexingTests.cs" />
     <None Include="TestData\SampleProject\Properties\AssemblyInfo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

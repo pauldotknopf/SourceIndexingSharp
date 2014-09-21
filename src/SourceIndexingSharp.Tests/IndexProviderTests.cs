@@ -19,10 +19,10 @@ namespace SourceIndexingSharp.Tests
             var pdbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SourceIndexingSharp.pdb");
 
             // act
-            _indexer.IndexFile(pdbFile, new SourceIndexingPdbProviderTests());
+            Context.Indexer.IndexFile(pdbFile, new SourceIndexingPdbProviderTests());
 
             // assert
-            var output = _srcTool.Dump(pdbFile, SrcToolFlags.ExtractFiles | SrcToolFlags.ShowVersionControlCommandsWhileExtracting, dumpDirectory: _extractionDirectory);
+            var output = Context.SrcTool.Dump(pdbFile, SrcToolFlags.ExtractFiles | SrcToolFlags.ShowVersionControlCommandsWhileExtracting, dumpDirectory: _extractionDirectory);
             Assert.That(output, Is.StringEnding("source files were extracted."));
             Assert.That(Directory.GetFiles(_extractionDirectory), Has.Length.GreaterThan(0));
         }

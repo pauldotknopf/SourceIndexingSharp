@@ -18,7 +18,7 @@ namespace SourceIndexingSharp.Tests
             var path = Environment.GetEnvironmentVariable("PATH");
 
             // act
-            var result = _stringExpander.Expand(value, variables);
+            var result = Context.StringExpander.Expand(value, variables);
 
             // assert
             Assert.That(result, Is.EqualTo(string.Format("This is a test {0} with {1}", "test...", path)));

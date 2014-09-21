@@ -12,8 +12,6 @@ namespace SourceIndexingSharp.Tests
     [TestFixture]
     public class StashIndexingTests : TestBase
     {
-        IStashApi _stashApi;
-
         [Test, Ignore]
         public void Can_retrieve_raw_source_file_from_http()
         {
@@ -23,7 +21,7 @@ namespace SourceIndexingSharp.Tests
                 File.Delete(destination);
 
             // act
-            _stashApi.ExtractSource(destination, "stash.medxchange.com", "EVO", "Software", "Src/MedXChange.Evo.Presentation/App.xaml", "5fadaa3dd87b817863253745ae67b1a29efbb1ca", new StashCredentials("pknopf", "youwish!"));
+            Context.StashApi.ExtractSource(destination, "stash.medxchange.com", "EVO", "Software", "Src/MedXChange.Evo.Presentation/App.xaml", "5fadaa3dd87b817863253745ae67b1a29efbb1ca", new StashCredentials("pknopf", "youwish!"));
 
             // assert
             Assert.That(File.Exists(destination));
@@ -34,20 +32,22 @@ namespace SourceIndexingSharp.Tests
         public void Can_extract_stash_sources()
         {
             // arrange
-            var pdbFile = @"E:\Git\testpdb\ErrorApp\ErrorApp\bin\Release\ErrorApp.pdb";
-            var indexProvider = new StashIndexProvider(@"E:\Git\testpdb", "stash.medxchange.com", "SB", "TestPDB", new StashCredentials("pknopf", "1234qwer"));
-            _indexer.IndexFile(pdbFile, indexProvider);
+            const string pdbFile = @"E:\Git\testpdb\ErrorApp\ErrorApp\bin\Release\ErrorApp.pdb";
+            Context.PdbCommandProcessor.Process(new List<string>{pdbFile},
+                "{" +
+                "   Provider: \"Stash\"," +
+                "   GitDirectory: \"E:\\\\Git\\\\testpdb\"," +
+                "   Host: \"stash.medxchange.com\"," +
+                "   Project: \"SB\"," +
+                "   Repository: \"TestPDB\"," +
+                "   Username: \"pknopf\"," +
+                "   Password: \"youwish!\"" + 
+                "}",
+                null);
 
             // act
-            var output = _srcTool.Dump(pdbFile, SrcToolFlags.ExtractFiles | SrcToolFlags.ShowVersionControlCommandsWhileExtracting, dumpDirectory: _extractionDirectory);
-            Assert.That(output, Is.StringEnding("source files were extracted."));
-            Assert.That(Directory.GetFiles(_extractionDirectory), Has.Length.GreaterThan(0));
-        }
-
-        public override void Setup()
-        {
-            base.Setup();
-            _stashApi = new StashApi();
+            var output = Context.SrcTool.Dump(pdbFile, SrcToolFlags.ExtractFiles | SrcToolFlags.ShowVersionControlCommandsWhileExtracting, dumpDirectory: _extractionDirectory);
+            Assert.That(output, Is.StringEnding("source files were extracted."), output);
         }
     }
 }
