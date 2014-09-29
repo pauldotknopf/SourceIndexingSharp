@@ -31,7 +31,9 @@ namespace SourceIndexingSharp.Tools
                     Arguments = string.Format("-w -s:{0} -p:\"{1}\" -i:\"{2}\"", streamName, pdbFile, tmpFile),
                     UseShellExecute = false,
                     RedirectStandardError = true,
-                    RedirectStandardOutput = true
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
                 };
 
                 using (var p = Process.Start(psi))
@@ -62,7 +64,9 @@ namespace SourceIndexingSharp.Tools
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
-                Arguments = string.Format("-r -s:{0} -p:\"{1}\"", streamName, pdbFile)
+                Arguments = string.Format("-r -s:{0} -p:\"{1}\"", streamName, pdbFile),
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden
             };
 
             string output;

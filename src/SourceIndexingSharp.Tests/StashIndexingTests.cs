@@ -9,10 +9,10 @@ using SourceIndexingSharp.Tools;
 
 namespace SourceIndexingSharp.Tests
 {
-    [TestFixture]
+    [TestFixture, Ignore]
     public class StashIndexingTests : TestBase
     {
-        [Test, Ignore]
+        [Test]
         public void Can_retrieve_raw_source_file_from_http()
         {
             // arrange
@@ -28,7 +28,7 @@ namespace SourceIndexingSharp.Tests
             Assert.That(File.ReadAllText(destination), Is.StringStarting("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));
         }
 
-        [Test, Ignore]
+        [Test]
         public void Can_extract_stash_sources()
         {
             // arrange

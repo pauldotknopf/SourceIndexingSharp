@@ -57,7 +57,9 @@ namespace SourceIndexingSharp.Tools
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
-                Arguments = string.Join(" ", flagParts)
+                Arguments = string.Join(" ", flagParts),
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden
             };
 
             string output;

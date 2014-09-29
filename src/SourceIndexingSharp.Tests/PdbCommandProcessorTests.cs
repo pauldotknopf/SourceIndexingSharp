@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using Moq;
 using NUnit.Framework;
+using SourceIndexingSharp.Indexing;
+using SourceIndexingSharp.Tools;
 
 namespace SourceIndexingSharp.Tests
 {
@@ -85,7 +87,7 @@ namespace SourceIndexingSharp.Tests
         [SetUp]
         public void Setup()
         {
-            _pdbCommandProcessor = new Mock<PdbCommandProcessor>(new StringExpander(), new PathResolver());
+            _pdbCommandProcessor = new Mock<PdbCommandProcessor>(new StringExpander(), new PathResolver(), Mock.Of<IIndexer>());
             _pdbCommandProcessor.CallBase = true;
         }
     }
