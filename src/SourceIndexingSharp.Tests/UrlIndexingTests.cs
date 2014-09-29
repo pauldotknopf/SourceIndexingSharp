@@ -11,7 +11,7 @@ namespace SourceIndexingSharp.Tests
     [TestFixture]
     public class UrlIndexingTests : TestBase
     {
-        [Test]
+        [Test, Ignore("hard coded paths that may not be on build server")]
         public void Can_extract_url_files()
         {
             // arrange
