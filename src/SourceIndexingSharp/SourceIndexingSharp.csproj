@@ -38,6 +38,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PowerArgs">
+      <HintPath>..\packages\PowerArgs.2.0.6.1\lib\net40\PowerArgs.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -52,8 +55,10 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CommandProcessor.cs" />
     <Compile Include="Git\GitRepo.cs" />
     <Compile Include="Git\GitLibInitializer.cs" />
+    <Compile Include="ICommandProcessor.cs" />
     <Compile Include="Indexing\IIndexer.cs" />
     <Compile Include="Indexing\IIndexProvider.cs" />
     <Compile Include="Indexing\Indexer.cs" />
@@ -90,6 +95,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\packages\LibGit2Sharp.0.19.0.0\lib\net40\NativeBinaries\x86\git2-69db893.dll">
       <Link>Git\Embedded\x86\git2-69db893.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\packages\LibGit2Sharp.0.19.0.0\lib\net40\LibGit2Sharp.dll" Condition="$(DefineConstants.Contains(EMBEDDED))">
+      <Link>Embedded\LibGit2Sharp.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll" Condition="$(DefineConstants.Contains(EMBEDDED))">
+      <Link>Embedded\Newtonsoft.Json.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\packages\PowerArgs.2.0.6.1\lib\net40\PowerArgs.dll" Condition="$(DefineConstants.Contains(EMBEDDED))">
+      <Link>Embedded\PowerArgs.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SourceIndexingSharp\bin\$(Configuration)\SourceIndexingSharp.dll" Condition="$(DefineConstants.Contains(EMBEDDED))">
+      <Link>Embedded\SourceIndexingSharp.dll</Link>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

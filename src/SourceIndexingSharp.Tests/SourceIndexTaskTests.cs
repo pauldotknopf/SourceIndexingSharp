@@ -70,7 +70,7 @@ namespace SourceIndexingSharp.Tests
                 "<Project ToolsVersion=\"4.0\" DefaultTargets=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">" +
                 "  <UsingTask TaskName=\"SourceIndexingSharp.Build.SourceIndex\" AssemblyFile=\"..\\SourceIndexingSharp.Build.dll\" />" +
                 "  <Target Name=\"Build\">" +
-                "      <SourceIndexingSharp.Build.SourceIndex ConfigFile=\"" + path + "\" PdbFiles=\"..\\SourceIndexingSharp.Build.pdb\" />" +
+                "      <SourceIndexingSharp.Build.SourceIndex ConfigFile=\"" + path + "\" PdbFiles=\"..\\SourceIndexingSharp.Build.pdb\" MSBuildProjectDirectory=\"$(MSBuildProjectDirectory)\" />" +
                 "  </Target>" +
                 "</Project>"));
         }

@@ -47,9 +47,6 @@
   <ItemGroup>
     <None Include="indexconfig.json" />
   </ItemGroup>
-  <UsingTask TaskName="SourceIndexingSharp.Build.SourceIndex" AssemblyFile="..\SourceIndexingSharp.Build\bin\$(Configuration)\SourceIndexingSharp.Build.dll" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild">
-    <SourceIndexingSharp.Build.SourceIndex ConfigFile="indexconfig.json" PdbFiles="$(OutputPath)$(TargetName).pdb" />
-  </Target>
+  <Import Project="..\NuGet\SourceIndexingSharp.targets" />
 </Project>

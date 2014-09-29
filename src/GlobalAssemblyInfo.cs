@@ -12,8 +12,8 @@ using System.Reflection;
 //------------------------------------------------------------------------------
 
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyVersionAttribute("1.0.0.0")]
-[assembly: AssemblyFileVersionAttribute("1.0.0.0")]
+[assembly: AssemblyVersionAttribute("0.0.0.9999")]
+[assembly: AssemblyFileVersionAttribute("0.0.0.9999")]
 [assembly: AssemblyCopyrightAttribute("Copyright Paul Knopf 2013-2014")]
 [assembly: AssemblyProductAttribute("SourceIndexingSharp")]
 [assembly: AssemblyTrademarkAttribute("SourceIndexingSharp")]

@@ -20,7 +20,7 @@ namespace SourceIndexingSharp.Tests
         [SetUp]
         public virtual void Setup()
         {
-            Context.ExtractorExe = () => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SourceIndexingSharpExtractor.exe");
+            Context.ConsoleExePath = () => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SourceIndexingSharpCons.exe");
             _extractionDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.GetRandomFileName());
             _buildInformation = new BuildInformation();
             if (!Directory.Exists(_extractionDirectory))

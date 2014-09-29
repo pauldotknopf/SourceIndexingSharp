@@ -21,8 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\appveyor.yml = ..\appveyor.yml
 		..\default.ps1 = ..\default.ps1
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
+		NuGet\install.ps1 = NuGet\install.ps1
 		..\psake.bat = ..\psake.bat
+		NuGet\SourceIndexingSharp.targets = NuGet\SourceIndexingSharp.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceIndexingSharp.Cons", "SourceIndexingSharp.Cons\SourceIndexingSharp.Cons.csproj", "{A6DFEA67-DDFB-4BED-9B3C-0D12CEC5A203}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +50,10 @@ Global
 		{3447CA92-C1C4-43FE-B9C0-8CA53F55E3C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3447CA92-C1C4-43FE-B9C0-8CA53F55E3C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3447CA92-C1C4-43FE-B9C0-8CA53F55E3C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6DFEA67-DDFB-4BED-9B3C-0D12CEC5A203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6DFEA67-DDFB-4BED-9B3C-0D12CEC5A203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6DFEA67-DDFB-4BED-9B3C-0D12CEC5A203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6DFEA67-DDFB-4BED-9B3C-0D12CEC5A203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

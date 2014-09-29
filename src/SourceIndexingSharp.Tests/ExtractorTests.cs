@@ -45,7 +45,7 @@ namespace SourceIndexingSharp.Tests
             {
                 var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
                 writer.WriteLine("SRCSRVTRG=%targ%\\%var2%");
-                writer.WriteLine("SRCSRVCMD={0} test -v {1} -o \"%SRCSRVTRG%\"", Context.ExtractorExe(), assemblyVersion);
+                writer.WriteLine("SRCSRVCMD={0} extract -p test -v {1} -o %SRCSRVTRG%", Context.ConsoleExePath(), assemblyVersion);
             }
 
             public void WriteSourceFiles(StreamWriter writer, List<string> sourceFiles)

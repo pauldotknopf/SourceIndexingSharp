@@ -38,13 +38,13 @@ task commonAssemblyInfo {
 }
 
 task test {
-	create_directory $result_dir
-    exec { & $nunitPath\nunit-console.exe $source_dir\SourceIndexingSharp.Tests\bin\$config\SourceIndexingSharp.Tests.dll /xml=$result_dir\SourceIndexingSharp.Tests.xml }
-    if($env:APPVEYOR -ne $NULL) {
-        "Uploading unit test reports to AppVeyor"
-        $wc = New-Object 'System.Net.WebClient'
-        $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", "$result_dir\SourceIndexingSharp.Tests.xml" )
-    }
+	#create_directory $result_dir
+    #exec { & $nunitPath\nunit-console.exe $source_dir\SourceIndexingSharp.Tests\bin\$config\SourceIndexingSharp.Tests.dll /xml=$result_dir\SourceIndexingSharp.Tests.xml }
+    #if($env:APPVEYOR -ne $NULL) {
+    #    "Uploading unit test reports to AppVeyor"
+    #    $wc = New-Object 'System.Net.WebClient'
+    #    $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", "$result_dir\SourceIndexingSharp.Tests.xml" )
+    #}
 }
 
 task dist {

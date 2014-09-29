@@ -64,7 +64,6 @@
     <Compile Include="BuildInformationTests.cs" />
     <Compile Include="ExtractorTests.cs" />
     <Compile Include="GitRepoTests.cs" />
-    <Compile Include="IndexCommandTests.cs" />
     <Compile Include="IndexProviderTests.cs" />
     <Compile Include="PdbCommandProcessorTests.cs" />
     <Compile Include="PdbReaderWriterTests.cs" />
@@ -92,6 +91,10 @@
     <ProjectReference Include="..\SourceIndexingSharp.Build\SourceIndexingSharp.Build.csproj">
       <Project>{3447ca92-c1c4-43fe-b9c0-8ca53f55e3c2}</Project>
       <Name>SourceIndexingSharp.Build</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SourceIndexingSharp.Cons\SourceIndexingSharp.Cons.csproj">
+      <Project>{a6dfea67-ddfb-4bed-9b3c-0d12cec5a203}</Project>
+      <Name>SourceIndexingSharp.Cons</Name>
     </ProjectReference>
     <ProjectReference Include="..\SourceIndexingSharp.Extractor\SourceIndexingSharp.Extractor.csproj">
       <Project>{c42f1276-d80b-4b29-b0bc-41099d1bab4a}</Project>

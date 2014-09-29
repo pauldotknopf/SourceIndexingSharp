@@ -33,17 +33,18 @@ namespace SourceIndexingSharp.Tests
         {
             // arrange
             const string pdbFile = @"E:\Git\testpdb\ErrorApp\ErrorApp\bin\Release\ErrorApp.pdb";
-            Context.PdbCommandProcessor.Process(new List<string>{pdbFile},
-                "{" +
-                "   Provider: \"Stash\"," +
-                "   GitDirectory: \"E:\\\\Git\\\\testpdb\"," +
-                "   Host: \"stash.medxchange.com\"," +
-                "   Project: \"SB\"," +
-                "   Repository: \"TestPDB\"," +
-                "   Username: \"pknopf\"," +
-                "   Password: \"youwish!\"" + 
-                "}",
-                null);
+            Context.CommandProcessor.ProcessCommand("index -provider stash -gitdirectory {0} -host {1} -project {2} -repository {3} -username {4} -password {5}");
+            //Context.PdbCommandProcessor.Process(new List<string>{pdbFile},
+            //    "{" +
+            //    "   Provider: \"Stash\"," +
+            //    "   GitDirectory: \"E:\\\\Git\\\\testpdb\"," +
+            //    "   Host: \"stash.medxchange.com\"," +
+            //    "   Project: \"SB\"," +
+            //    "   Repository: \"TestPDB\"," +
+            //    "   Username: \"pknopf\"," +
+            //    "   Password: \"youwish!\"" + 
+            //    "}",
+            //    null);
 
             // act
             var output = Context.SrcTool.Dump(pdbFile, SrcToolFlags.ExtractFiles | SrcToolFlags.ShowVersionControlCommandsWhileExtracting, dumpDirectory: _extractionDirectory);

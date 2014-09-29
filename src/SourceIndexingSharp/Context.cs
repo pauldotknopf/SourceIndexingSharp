@@ -14,6 +14,9 @@ namespace SourceIndexingSharp
 
         static Context()
         {
+#if EMBEDDED
+            AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
+#endif
             Container = new TinyIoCContainer();
             Container.Register<Paths>().AsSingleton();
             Container.Register<ISrcTool, SrcTool>();
@@ -23,6 +26,7 @@ namespace SourceIndexingSharp
             Container.Register<IStringExpander, StringExpander>();
             Container.Register<IPdbCommandProcessor, PdbCommandProcessor>();
             Container.Register<IPathResolver, PathResolver>();
+            Container.Register<ICommandProcessor, CommandProcessor>();
         }
 
         public static IPdbReaderWriter PdbReaderWriter
@@ -60,6 +64,36 @@ namespace SourceIndexingSharp
             get { return Container.Resolve<IStringExpander>(); }
         }
 
-        public static Func<string> ExtractorExe = () => "SourceIndexingSharpExtractor.exe";
+        public static ICommandProcessor CommandProcessor
+        {
+            get { return Container.Resolve<ICommandProcessor>(); }
+        }
+
+        public static Func<string> ConsoleExePath = () => "SourceIndexingSharpCons.exe";
+
+#if EMBEDDED
+        private static Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            var resourceName = "SourceIndexingSharp.Embedded." + new AssemblyName(args.Name).Name + ".dll";
+
+            foreach (var resourcen in Assembly.GetExecutingAssembly().GetManifestResourceNames())
+            {
+                Console.WriteLine("Name: " + resourcen);
+            }
+
+            Console.WriteLine(resourceName);
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+            {
+                if(stream == null)
+                    return null;
+
+                var assemblyData = new Byte[stream.Length];
+
+                stream.Read(assemblyData, 0, assemblyData.Length);
+
+                return Assembly.Load(assemblyData);
+            }
+        }
+#endif
     }
 }

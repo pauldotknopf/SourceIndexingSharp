@@ -15,7 +15,7 @@ namespace SourceIndexingSharp.Build
 
         private string _configFile;
         private string _pdbFiles;
-        private string _rootDirectory;
+        private string _msBuildProjectDirectory;
 
         #endregion
 
@@ -41,6 +41,16 @@ namespace SourceIndexingSharp.Build
             set { _pdbFiles = value; }
         }
 
+        /// <summary>
+        /// The $(MSBuildProjectDirectory) property
+        /// </summary>
+        [Required]
+        public string MSBuildProjectDirectory
+        {
+            get { return _msBuildProjectDirectory; }
+            set { _msBuildProjectDirectory = value; }
+        }
+
         #endregion
 
         #region Task
@@ -55,22 +65,20 @@ namespace SourceIndexingSharp.Build
         {
             try
             {
-                _rootDirectory = new FileInfo(BuildEngine3.ProjectFileOfTaskNode).Directory.FullName;
-
-                _configFile = Context.PathResolver.ResolvePath(_configFile, _rootDirectory);
+                _configFile = Context.PathResolver.ResolvePath(_configFile, MSBuildProjectDirectory);
 
                 if (!File.Exists(_configFile))
                     throw new Exception(string.Format("No configuration file exists at the path '{0}'.", _configFile));
 
                 var pdbFiles = PdbFiles.Split(';').Select(x =>
                 {
-                    var pdbPath = Context.PathResolver.ResolvePath(x, _rootDirectory);
+                    var pdbPath = Context.PathResolver.ResolvePath(x, MSBuildProjectDirectory);
                     if(!File.Exists(pdbPath))
                         throw new Exception(string.Format("The file '{0}' could not be found.", pdbPath));
                     return pdbPath;
                 }).ToList();
 
-                Context.PdbCommandProcessor.Process(pdbFiles, File.ReadAllText(_configFile), _rootDirectory);
+                Context.PdbCommandProcessor.Process(pdbFiles, File.ReadAllText(_configFile), MSBuildProjectDirectory);
 
                 return true;
             }

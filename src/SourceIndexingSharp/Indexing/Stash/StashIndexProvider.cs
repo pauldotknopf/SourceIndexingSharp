@@ -53,7 +53,7 @@ namespace SourceIndexingSharp.Indexing.Stash
             {
                 writer.WriteLine(
                     "SRCSRVCMD={0} extractstash -version {1} -output %SRCSRVTRG% -host {2} -project {3} -repository {4} -file %var2% -commit {5} -username {6} -password {7}",
-                    Context.ExtractorExe(),
+                    Context.ConsoleExePath(),
                     assemblyVersion,
                     _host,
                     _project,
